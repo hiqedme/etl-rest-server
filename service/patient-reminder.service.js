@@ -97,23 +97,6 @@ function viralLoadReminders(data) {
         toast: true
       }
     });
-    // } else if (
-    //   isAdult &&
-    //   data.needs_vl_coded === 2 &&
-    //   data.months_since_last_vl_date >= 6
-    // ) {
-    //   reminders.push({
-    //     message:
-    //       'Patient requires a viral load test. Patients older than 25 years and newly on ART require ' +
-    //       'a viral load test every 6 months. ' +
-    //       labMessage,
-    //     title: 'Viral Load Reminder',
-    //     type: 'danger',
-    //     display: {
-    //       banner: true,
-    //       toast: true
-    //     }
-    //   });
   } else if (
     isAdult &&
     (data.needs_vl_coded === 3) & (data.months_since_last_vl_date >= 12)
