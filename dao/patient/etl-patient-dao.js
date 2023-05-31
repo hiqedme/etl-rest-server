@@ -15,6 +15,8 @@ module.exports = (function () {
   function getPatientHivSummary(request, callback) {
     var uuid = request.params.uuid;
     var order = helpers.getSortOrder(request.query.order);
+    var cm_fields =
+      't2.cm_treatment_start_date, t2.on_cm_treatment, t2.cm_treatment_end_date,t2.cm_treatment_phase';
     var includeNonClinicalEncounter = Boolean(true || false);
     var whereClause =
       includeNonClinicalEncounter === true
@@ -24,8 +26,11 @@ module.exports = (function () {
             uuid
           ];
     var queryParts = {
-      columns: request.query.fields || '*',
+      columns: request.query.fields || 't1.*,' + cm_fields,
       table: 'etl.flat_hiv_summary_v15b',
+      leftOuterJoins: [
+        ['etl.flat_hiv_summary_ext', 't2', 't1.encounter_id=t2.encounter_id']
+      ],
       where: whereClause,
       order: order || [
         {
@@ -36,6 +41,7 @@ module.exports = (function () {
       offset: request.query.startIndex,
       limit: request.query.limit
     };
+    console.log(queryParts);
 
     var qParts = {
       columns: '*',
@@ -49,7 +55,7 @@ module.exports = (function () {
     //get encounter type Name
     var encounterNamesPromise = db.queryDb(qParts);
     var summaryDataPromise = db.queryDb(queryParts);
-
+    console.log(summaryDataPromise);
     var promise = Promise.all([encounterNamesPromise, summaryDataPromise])
       .then(function (data) {
         var encTypeNames = data[0];
