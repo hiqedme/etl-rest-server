@@ -250,6 +250,22 @@ function cd4TestReminder(data) {
         }
       });
       break;
+    case 5:
+      reminders.push({
+        message:
+          'Patient is on Crptococcus treatment, repeat CD4 is required. Last CD4 is  ' +
+          data.latest_cd4_count +
+          ', done ' +
+          data.months_since_cd4_count +
+          ' months ago.',
+        title: 'CD4 Reminder',
+        type: 'success',
+        display: {
+          banner: true,
+          toast: true
+        }
+      });
+      break;
     default:
   }
   return reminders;
