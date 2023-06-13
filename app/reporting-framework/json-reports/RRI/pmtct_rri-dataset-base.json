@@ -14,7 +14,7 @@
       "alias": "dts",
       "join": {
         "type": "INNER",
-        "joinCondition": "is_clinical_encounter=1 and encounter_datetime <= dts.endDate and coalesce(prd.death_date, out_of_care) is null"
+        "joinCondition": "encounter_datetime <= dts.endDate and coalesce(prd.death_date, out_of_care) is null"
       }
     },
     {
@@ -37,101 +37,27 @@
   "columns": [
     {
       "type": "derived_column",
-      "alias": "on_arvs_first_line",
+      "alias": "no_vl_done_past_6_months",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "cur_arv_line=1"
+        "expression": "prd.cur_arv_meds is not null and (prd.latest_vl_test_date is null or timestampdiff(month,prd.latest_vl_test_date,encounter_datetime) >= 6)"
       }
     },
 
     {
       "type": "derived_column",
-      "alias": "vl_done_past_year",
+      "alias": "vl_done_past_6_months",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "timestampdiff(week,vl_1_date,encounter_datetime) <= 52"
+        "expression": "timestampdiff(month,prd.latest_vl_test_date,encounter_datetime) <= 6"
       }
     },
-    {
-      "type": "derived_column",
-      "alias": "vl_done_past_year_relative_to_end_date",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,vl_1_date,'{endDate}') <= 52"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "no_vl_done_past_year",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "cur_arv_line is not null and (vl_1_date is null or timestampdiff(week,vl_1_date,encounter_datetime) >= 52)"
-      }
-    },
-
-    {
-      "type": "derived_column",
-      "alias": "vl_done_past_year_lte_1000",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,vl_1_date,encounter_datetime) <= 52 and vl_1 <= 1000"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "vl_done_this_encounter",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_resulted >= 0 and vl_resulted_date=date(encounter_datetime)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "vl_done_this_encounter_lte_1000",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_resulted <= 1000 and vl_resulted_date = date(encounter_datetime)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "vl_done_this_encounter_gt_1000",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_resulted > 1000 and vl_resulted_date = date(encounter_datetime)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "vl_ordered",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "date(vl_order_date)=date(encounter_datetime)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "pending_vl_order",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,vl_order_date,encounter_datetime) >= 0 and vl_1_date < vl_order_date"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "pending_vl_order_no_result_after_4_weeks",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,vl_order_date,encounter_datetime) >= 4 and vl_1_date < vl_order_date"
-      }
-    },
-
     {
       "type": "derived_column",
       "alias": "pregnant",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "edd > encounter_datetime"
+        "expression": "prd.is_pregnant = 1"
       }
     },
     {
@@ -139,59 +65,17 @@
       "alias": "pregnant_and_on_arvs",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "edd > encounter_datetime and cur_arv_line is not null"
+        "expression": "prd.is_pregnant = 1 and prd.cur_arv_meds is not null"
       }
     },
     {
       "type": "derived_column",
-      "alias": "virally_suppressed",
+      "alias": "virally_unsuppressed",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "timestampdiff(month,arv_start_date,encounter_datetime) >= 6 and timestampdiff(day, date(vl_1_date), date(dts.endDate)) <= 365 and vl_1 < 1000"
+        "expression": "timestampdiff(month, date(prd.latest_vl_test_date), date(dts.endDate)) <= 6 and prd.latest_vl_test_date > 200"
       }
     },
-    {
-      "type": "derived_column",
-      "alias": "virally_suppressed_in_past_year",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_1 < 1000 and  timestampdiff(week,vl_1_date,encounter_datetime) <= 52"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "viral_load_resulted_in_past_year",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_1 is not null and  timestampdiff(week,vl_1_date,encounter_datetime) <= 52"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "not_virally_suppressed_in_past_year",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "vl_1> 1000 and  timestampdiff(week,vl_1_date,encounter_datetime) <= 52"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "on_arvs_gt_26_weeks",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,arv_start_date,encounter_datetime) > 26"
-      }
-    },
-
-    {
-      "type": "derived_column",
-      "alias": "vl_done_past_year_gt_1000",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "timestampdiff(week,vl_1_date,encounter_datetime) <= 52 and vl_1 > 1000"
-      }
-    },
-
     {
       "type": "derived_column",
       "alias": "age_range",
@@ -207,30 +91,6 @@
             "value": "below_15"
           }
         ]
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "transfer_in_from_non_Ampath_site",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "prd.transfer_in=1287 and (prd.encounter_datetime between DATE_FORMAT(dts.endDate, '%Y-%m-01') and dts.endDate)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "transfer_in_from_Ampath_site",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "prd.transfer_in=1286 and (prd.encounter_datetime between DATE_FORMAT(dts.endDate, '%Y-%m-01') and dts.endDate)"
-      }
-    },
-    {
-      "type": "derived_column",
-      "alias": "transfer_in",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "case when date(prd.hiv_start_date) between DATE_FORMAT(dts.endDate, '%Y-%m-01') and dts.endDate  then null when prd.transfer_in is not null and (prd.encounter_datetime between DATE_FORMAT(dts.endDate, '%Y-%m-01') and dts.endDate) then 1 else null end"
       }
     },
     {
@@ -265,7 +125,7 @@
     {
       "type": "simple_column",
       "alias": "location_uuid",
-      "column": "prd.location_uuid"
+      "column": "l.uuid"
     },
     {
       "type": "simple_column",
@@ -325,21 +185,6 @@
         "filterType": "tableColumns",
         "conditionExpression": "p.gender in ?",
         "parameterName": "gender"
-      },
-      {
-        "filterType": "tableColumns",
-        "conditionExpression": "prd.is_clinical_encounter = 1",
-        "parameterName": ""
-      },
-      {
-        "filterType": "tableColumns",
-        "conditionExpression": "coalesce(prd.death_date, out_of_care) is null",
-        "parameterName": ""
-      },
-      {
-        "filterType": "tableColumns",
-        "conditionExpression": "(prd.next_clinical_datetime_hiv is null or next_clinical_datetime_hiv  >= dts.endDate)",
-        "parameterName": ""
       }
     ]
   }

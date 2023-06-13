@@ -34,7 +34,7 @@ import * as referral_aggregate from './json-reports/referral-aggregate.json';
 import * as referral_peer_aggregate from './json-reports/referral-peer-aggregate.json';
 import * as referral_patient_list_peer_base from './json-reports/referral-peer-base.json';
 import * as cdm_dataset_base from './json-reports/cdm/cdm-dataset-base.json';
-
+import * as pmtc_rri_dataset_base from './json-reports/rri/pmtct_rri-dataset-base.json';
 import * as starting_art_aggregation_age15 from './json-reports/starting-art-aggregation-age15.json';
 import * as starting_art_base_age15 from './json-reports/starting-art-base-age15.json';
 import * as starting_art_disaggregation_age15 from './json-reports/starting-art-disaggregation-age15.json';
@@ -266,7 +266,7 @@ export class BaseMysqlReport {
 
               that.reportQuery = sqlQuery;
               // run query
-              // console.log('Query', sqlQuery);
+              console.log('Query', sqlQuery);
               that
                 .executeReportQuery(that.reportQuery)
                 .then((result) => {
@@ -718,6 +718,11 @@ export class BaseMysqlReport {
         case 'cdmPatientSummary':
           resolve({
             main: this.cloneJsonSchema(cdm_dataset_base)
+          });
+          break;
+        case 'pmtctRriSummary':
+          resolve({
+            main: this.cloneJsonSchema(pmtc_rri_dataset_base)
           });
           break;
         case 'clinicalReminderReport':
