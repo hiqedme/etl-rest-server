@@ -37,19 +37,10 @@
   "columns": [
     {
       "type": "derived_column",
-      "alias": "no_vl_done_past_6_months",
-      "expressionType": "simple_expression",
-      "expressionOptions": {
-        "expression": "prd.cur_arv_meds is not null and (prd.latest_vl_test_date is null or timestampdiff(month,prd.latest_vl_test_date,encounter_datetime) >= 6)"
-      }
-    },
-
-    {
-      "type": "derived_column",
       "alias": "vl_done_past_6_months",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "timestampdiff(month,prd.latest_vl_test_date,encounter_datetime) <= 6"
+        "expression": "CASE  WHEN prd.cur_arv_meds IS NOT NULL AND (prd.latest_vl_test_date IS NULL OR TIMESTAMPDIFF(MONTH,prd.latest_vl_test_date, encounter_datetime) >= 6) = 1 THEN  0  WHEN  TIMESTAMPDIFF(MONTH,prd.latest_vl_test_date, encounter_datetime) <= 6 THEN 1 ELSE NULL END"
       }
     },
     {
@@ -65,7 +56,7 @@
       "alias": "pregnant_and_on_arvs",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "prd.is_pregnant = 1 and prd.cur_arv_meds is not null"
+        "expression": "CASE WHEN prd.is_pregnant = 1 AND prd.cur_arv_meds IS NOT NULL THEN 1 WHEN prd.is_pregnant = 1 AND prd.cur_arv_meds IS NULL THEN 0 ELSE NULL END"
       }
     },
     {
@@ -73,7 +64,7 @@
       "alias": "virally_unsuppressed",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "timestampdiff(month, date(prd.latest_vl_test_date), date(dts.endDate)) <= 6 and prd.latest_vl_test_date > 200"
+        "expression": "CASE WHEN TIMESTAMPDIFF(MONTH, DATE(prd.latest_vl_test_date), DATE(dts.endDate)) <= 6 AND prd.latest_viral_load >= 200 THEN 1 WHEN TIMESTAMPDIFF(MONTH, DATE(prd.latest_vl_test_date), DATE(dts.endDate)) <= 6 AND prd.latest_vl_test_date < 200 THEN 10 ELSE NULL END"
       }
     },
     {
@@ -151,6 +142,11 @@
       "type": "simple_column",
       "alias": "gender",
       "column": "p.gender"
+    },
+    {
+      "type": "simple_column",
+      "alias": "age",
+      "column": "prd.age"
     }
   ],
   "filters": {
@@ -158,13 +154,13 @@
     "conditions": [
       {
         "filterType": "tableColumns",
-        "conditionExpression": "prd.encounter_datetime <= ?",
-        "parameterName": "endDate"
+        "conditionExpression": "prd.encounter_datetime >= ?",
+        "parameterName": "startDate"
       },
       {
         "filterType": "tableColumns",
-        "conditionExpression": "prd.encounter_datetime >= ?",
-        "parameterName": "startDate"
+        "conditionExpression": "prd.encounter_datetime <= ?",
+        "parameterName": "endDate"
       },
       {
         "filterType": "tableColumns",
@@ -187,5 +183,10 @@
         "parameterName": "gender"
       }
     ]
+  },
+  "groupBy": {
+    "groupParam": "groupByParam",
+    "columns": ["prd.person_id"],
+    "excludeParam": "excludeParam"
   }
 }

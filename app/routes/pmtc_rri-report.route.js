@@ -6,7 +6,7 @@ var preRequest = require('../../pre-request-processing');
 const routes = [
   {
     method: 'GET',
-    path: '/etl/pmtct_rri-summary',
+    path: '/etl/pmtct_rri_summary',
     config: {
       plugins: {
         hapiAuthorization: {
@@ -17,7 +17,7 @@ const routes = [
         preRequest.resolveLocationIdsToLocationUuids(request, function () {
           let requestParams = Object.assign({}, request.query, request.params);
           let reportParams = etlHelpers.getReportParams(
-            'pmtct_rri-summary',
+            'pmtct_rri_summary',
             ['endDate', 'locationUuids'],
             requestParams
           );
