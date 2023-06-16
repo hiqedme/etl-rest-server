@@ -53,6 +53,14 @@
     },
     {
       "type": "derived_column",
+      "alias": "breastfeeding",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": " prd.is_mother_breastfeeding =1"
+      }
+    },
+    {
+      "type": "derived_column",
       "alias": "pregnant_and_on_arvs",
       "expressionType": "simple_expression",
       "expressionOptions": {
