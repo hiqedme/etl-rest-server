@@ -12,7 +12,7 @@ import { FamilyTestingService } from './../app/family-history/family-history.ser
 var serviceDef = {
   generateReminders: generateReminders,
   viralLoadReminders: viralLoadReminders,
-  cd4TestReminder: cd4TestReminder,
+  cd4TestReminder: amrs_migration.Reminder,
   newViralLoadPresent: newViralLoadPresent,
   viralLoadErrors: viralLoadErrors,
   pendingViralOrder: pendingViralOrder,
