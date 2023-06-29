@@ -100,7 +100,7 @@
       "alias": "t11",
       "join": {
         "type": "left",
-        "joinCondition": "t11.encounter_id = t1.encounter_id WHERE on_cm_treatment = 1 AND cm_treatment_end_date IS NULL "
+        "joinCondition": "t11.encounter_id = t1.encounter_id "
       }
     }
   ],
@@ -160,7 +160,7 @@
       "alias": "get_cd4_count_coded",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "CASE WHEN (TIMESTAMPDIFF(MONTH, ls.arv_start_date , '{referenceDate}') >= 3) AND ls.cd4_1 IS NULL THEN 1 WHEN (ls.vl_1 > 1000) THEN 2 WHEN (TIMESTAMPDIFF(MONTH, ls.rtc_date, CURDATE()) > 3) THEN 3 WHEN ls.cd4_2 IS NULL AND (TIMESTAMPDIFF(MONTH, ls.cd4_1_date, '{referenceDate}') > 6) THEN 4   ELSE 0 END"
+        "expression": "CASE WHEN (TIMESTAMPDIFF(MONTH, ls.arv_start_date , '{referenceDate}') >= 3) AND ls.cd4_1 IS NULL THEN 1 WHEN (ls.vl_1 > 1000) THEN 2 WHEN (TIMESTAMPDIFF(MONTH, ls.rtc_date, '{referenceDate}') > 3) THEN 3 WHEN ( t11.on_cm_treatment = 1 AND t11.cm_treatment_end_date IS NULL) AND (TIMESTAMPDIFF(MONTH, ls.cd4_1_date, '{referenceDate}') > 6) THEN 4   ELSE 0 END"
       }
     },
     {

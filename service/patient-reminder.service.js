@@ -12,7 +12,7 @@ import { FamilyTestingService } from './../app/family-history/family-history.ser
 var serviceDef = {
   generateReminders: generateReminders,
   viralLoadReminders: viralLoadReminders,
-  cd4TestReminder: amrs_migration.Reminder,
+  cd4TestReminder: cd4TestReminder,
   newViralLoadPresent: newViralLoadPresent,
   viralLoadErrors: viralLoadErrors,
   pendingViralOrder: pendingViralOrder,
@@ -203,7 +203,7 @@ function cd4TestReminder(data) {
     case 2:
       reminders.push({
         message:
-          'Patient requires CD4. Latest CD4 is  ' +
+          'Suspected Treatment Failure: Patient requires CD4. Latest CD4 is  ' +
           data.latest_cd4_count +
           ', done ' +
           data.months_since_cd4_count +
@@ -219,7 +219,7 @@ function cd4TestReminder(data) {
     case 3:
       reminders.push({
         message:
-          'Patient requires CD4 confirmation. Previous CD4 was ' +
+          'Patient requires CD4. Patient missed clinic by more than 3 months. Previous CD4 was ' +
           data.previous_cd4_count +
           ' Latest CD4 is  ' +
           data.latest_cd4_count +
@@ -237,7 +237,7 @@ function cd4TestReminder(data) {
     case 4:
       reminders.push({
         message:
-          'Patient requires CD4 confirmation. First CD4 is  ' +
+          'Patient on cryptococcal treatment requires CD4. Latest CD4 is  ' +
           data.latest_cd4_count +
           ', done ' +
           data.months_since_cd4_count +
