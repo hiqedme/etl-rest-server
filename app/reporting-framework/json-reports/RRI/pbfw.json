@@ -1,0 +1,86 @@
+{
+  "name": "PBFW",
+  "version": "1.0",
+  "tag": "PBFW_aggregate",
+  "uses": [
+    {
+      "name": "pmtctRriDataSetBase",
+      "version": "1.0",
+      "type": "dataset_def"
+    }
+  ],
+  "sources": [
+    {
+      "dataSet": "pmtctRriDataSetBase",
+      "alias": "prd_base"
+    },
+    {
+      "dataSet": "etl.flat_hiv_summary_v15b",
+      "alias": "fhs"
+    }
+  ],
+  "columns": [
+    {
+      "type": "simple_column",
+      "alias": "Reporting_Month",
+      "column": "reporting_month"
+    },
+    {
+      "type": "simple_column",
+      "alias": "location_id",
+      "column": "location_id"
+    },
+    {
+      "type": "simple_column",
+      "alias": "location_Name",
+      "column": "location"
+    },
+    {
+      "type": "derived_column",
+      "alias": "person_id",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "COUNT(prd_base.person_id)"
+      }
+    },
+    {
+      "type": "derived_column",
+      "alias": "has_valid_VL",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "SUM(prd_base.vl_done_past_6_months)"
+      }
+    },
+    {
+      "type": "derived_column",
+      "alias": "unsuppressed",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "SUM(prd_base.virally_unsuppressed)"
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "prd_base.pregnant = 1 OR prd_base.breastfeeding = 1"
+    },
+    {
+      "condition": "prd_base.location_id=1"
+    },
+    {
+      "condition": "prd_base.encounter_datetime >= '2006-08-01'"
+    },
+    {
+      "condition": "prd_base.encounter_datetime <= '2006-08-31'"
+    }
+  ],
+  "joins": [
+    {
+      "join_type": "INNER",
+      "join_dataset": "etl.flat_hiv_summary_v15b",
+      "alias": "fhs",
+      "join_condition": "prd_base.person_id = fhs.person_id"
+    }
+  ],
+  "group_by": ["prd_base.location_id", "prd_base.reporting_month"]
+}
