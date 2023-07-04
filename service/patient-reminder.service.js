@@ -201,20 +201,22 @@ function cd4TestReminder(data) {
       });
       break;
     case 2:
-      reminders.push({
-        message:
-          'Suspected Treatment Failure: Patient requires CD4. Latest CD4 is  ' +
-          data.latest_cd4_count +
-          ', done ' +
-          data.months_since_cd4_count +
-          ' months ago.',
-        title: 'CD4 Reminder',
-        type: 'success',
-        display: {
-          banner: true,
-          toast: true
-        }
-      });
+      if (data.months_since_cd4_count > 6) {
+        reminders.push({
+          message:
+            'Suspected Treatment Failure: Patient requires CD4. Latest CD4 is  ' +
+            data.latest_cd4_count +
+            ', done ' +
+            data.months_since_cd4_count +
+            ' months ago.',
+          title: 'CD4 Reminder',
+          type: 'success',
+          display: {
+            banner: true,
+            toast: true
+          }
+        });
+      }
       break;
     case 3:
       reminders.push({
@@ -235,20 +237,22 @@ function cd4TestReminder(data) {
       });
       break;
     case 4:
-      reminders.push({
-        message:
-          'Patient on cryptococcal treatment requires CD4. Latest CD4 is  ' +
-          data.latest_cd4_count +
-          ', done ' +
-          data.months_since_cd4_count +
-          ' months ago.',
-        title: 'CD4 Reminder',
-        type: 'success',
-        display: {
-          banner: true,
-          toast: true
-        }
-      });
+      if (data.months_since_cd4_count > 6) {
+        reminders.push({
+          message:
+            'Patient on cryptococcal treatment requires CD4. Latest CD4 is  ' +
+            data.latest_cd4_count +
+            ', done ' +
+            data.months_since_cd4_count +
+            ' months ago.',
+          title: 'CD4 Reminder',
+          type: 'success',
+          display: {
+            banner: true,
+            toast: true
+          }
+        });
+      }
       break;
     default:
   }
