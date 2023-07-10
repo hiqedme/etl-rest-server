@@ -181,6 +181,14 @@
     },
     {
       "type": "derived_column",
+      "alias": "next_rtc_duration",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "TIMESTAMPDIFF(MONTH, ls.rtc_date, '{referenceDate}')"
+      }
+    },
+    {
+      "type": "derived_column",
       "alias": "is_on_inh_treatment",
       "expressionType": "simple_expression",
       "expressionOptions": {
@@ -230,6 +238,7 @@
       "alias": "arv_start_date",
       "column": "t1.arv_start_date"
     },
+
     {
       "type": "simple_column",
       "alias": "cur_arv_meds",
