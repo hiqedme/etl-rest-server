@@ -185,13 +185,18 @@ function viralLoadReminders(data) {
 
   return reminders;
 }
+
 function cd4TestReminder(data) {
   let reminders = [];
-
+  let suspected =
+    'Suspected Treatment Failure: Viral load is: ' + data.viral_load + '.';
+  if (data.viral_load < 1000) {
+    suspected = '';
+  }
   switch (data.get_cd4_count_coded) {
     case 1:
       reminders.push({
-        message: 'Patient requires a baseline CD4',
+        message: suspected + ' Patient requires a baseline CD4',
         title: 'CD4 Reminder',
         type: 'success',
         display: {
@@ -204,7 +209,8 @@ function cd4TestReminder(data) {
       if (data.months_since_cd4_count > 6) {
         reminders.push({
           message:
-            'Suspected Treatment Failure: Patient requires CD4. Latest CD4 is  ' +
+            suspected +
+            ' Patient requires CD4. Latest CD4 is  ' +
             data.latest_cd4_count +
             ', done ' +
             data.months_since_cd4_count +
@@ -221,11 +227,12 @@ function cd4TestReminder(data) {
     case 3:
       reminders.push({
         message:
-          'Patient requires CD4. Patient missed clinic by more than 3 months. Previous CD4 was ' +
-          data.previous_cd4_count +
-          ' Latest CD4 is  ' +
+          suspected +
+          ' Patient requires CD4. Patient missed clinic by more than 3 months. Latest CD4 is  ' +
           data.latest_cd4_count +
-          ', done ' +
+          ', and latest CD4 done on (' +
+          Moment(data.latest_CD4_Date).format('DD-MM-YYYY') +
+          ') ' +
           data.months_since_cd4_count +
           ' months ago.',
         title: 'CD4 Reminder',
@@ -240,7 +247,7 @@ function cd4TestReminder(data) {
       if (data.months_since_cd4_count > 6) {
         reminders.push({
           message:
-            'Patient on cryptococcal treatment requires CD4. Latest CD4 is  ' +
+            ' Patient on cryptococcal treatment requires CD4. Latest CD4 is  ' +
             data.latest_cd4_count +
             ', done ' +
             data.months_since_cd4_count +
