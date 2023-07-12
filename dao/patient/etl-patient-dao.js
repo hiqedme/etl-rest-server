@@ -24,12 +24,15 @@ module.exports = (function () {
             uuid
           ];
     var queryParts = {
-      columns: request.query.fields || '*',
+      columns: request.query.fields || '*,  t3.*',
       table: 'etl.flat_hiv_summary_v15b',
       where: whereClause,
+      leftOuterJoins: [
+        ['etl.flat_hiv_summary_ext', 't3', 't1.encounter_id = t3.encounter_id']
+      ],
       order: order || [
         {
-          column: 'encounter_datetime',
+          column: 't1.encounter_datetime',
           asc: false
         }
       ],
@@ -44,7 +47,6 @@ module.exports = (function () {
       offset: request.query.startIndex,
       limit: 1000
     };
-
     var encounterTypeNames = {};
     //get encounter type Name
     var encounterNamesPromise = db.queryDb(qParts);
