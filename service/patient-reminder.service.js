@@ -173,7 +173,10 @@ function viralLoadReminders(data) {
   // all patients
   else if (data.needs_vl_coded === 7) {
     reminders.push({
-      message: requires + ' 3 months after Regimen Modification ' + labMessage,
+      message:
+        requires +
+        ' 3 months after Regimen Modification done on ' +
+        Moment(data.last_encounter_date).format('DD-MM-YYYY'),
       title: 'Viral Load Reminder',
       type: 'danger',
       display: {
