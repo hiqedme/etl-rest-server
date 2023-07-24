@@ -226,7 +226,9 @@ function cd4TestReminder(data) {
             suspected +
             ' Patient requires CD4 test. Latest CD4 is  ' +
             data.latest_cd4_count +
-            ', done ' +
+            ', done (' +
+            Moment(data.latest_CD4_Date).format('DD-MM-YYYY') +
+            ') ' +
             data.months_since_cd4_count +
             ' months ago.',
           title: 'CD4 Reminder',
@@ -287,7 +289,9 @@ function cd4TestReminder(data) {
           message:
             ' Patient on cryptococcal treatment, requires CD4 test.  Latest CD4 is  ' +
             data.latest_cd4_count +
-            ', done ' +
+            ', done (' +
+            Moment(data.latest_CD4_Date).format('DD-MM-YYYY') +
+            ') ' +
             data.months_since_cd4_count +
             ' months ago.',
           title: 'CD4 Reminder',
