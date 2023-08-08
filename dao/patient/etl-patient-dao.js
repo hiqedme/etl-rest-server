@@ -345,6 +345,7 @@ module.exports = (function () {
         resolve(result);
       });
     });
+    console.log('Encounters ni hizi:', patientEncounters);
     var patientReminders = new Promise(function (resolve, reject) {
       var extendedRequest = request;
       extendedRequest.query.limit = 1;
