@@ -9,12 +9,21 @@
       "table": "etl.flat_hiv_summary_v15b",
       "alias": "t1"
     },
+
     {
       "table": "amrs.person",
       "alias": "t2",
       "join": {
         "type": "INNER",
         "joinCondition": "t1.person_id=t2.person_id"
+      }
+    },
+    {
+      "table": "etl.flat_hiv_summary_ext",
+      "alias": "t3",
+      "join": {
+        "type": "LEFT",
+        "joinCondition": "t1.encounter_id = t3.encounter_id"
       }
     }
   ],
@@ -49,6 +58,16 @@
       "type": "simple_column",
       "alias": "previous_vl",
       "column": "t1.vl_1"
+    },
+    {
+      "type": "simple_column",
+      "alias": "cur_arv_line",
+      "column": "t1.cur_arv_line"
+    },
+    {
+      "type": "simple_column",
+      "alias": "reason_for_regimen_change",
+      "column": "t3.reason_for_regimen_change"
     },
     {
       "type": "simple_column",

@@ -4550,7 +4550,6 @@ module.exports = (function () {
             'medicalHistoryReport',
             reportParams.requestParams
           );
-          console.log('report ni hizi', report);
           report
             .generateReport()
             .then((result) => {
@@ -4559,7 +4558,6 @@ module.exports = (function () {
                 result
               );
               reply(processedResults);
-              console.log('processedResults ni hizi', processedResults);
             })
             .catch((error) => {
               reply(error);

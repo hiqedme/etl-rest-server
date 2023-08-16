@@ -26,7 +26,7 @@ module.exports = (function () {
     var queryParts = {
       columns:
         request.query.fields ||
-        't1.*,  t3.cm_result,t3.cm_result_date, t3.cm_test, t3.cm_treatment_end_date, t3.cm_treatment_phase, t3.cm_treatment_start_date',
+        't1.*,  t3.cm_result,t3.cm_result_date, t3.cm_test, t3.cm_treatment_end_date, t3.cm_treatment_phase, t3.cm_treatment_start_date, t3.reason_for_regimen_change',
 
       table: 'etl.flat_hiv_summary_v15b',
       where: whereClause,
@@ -345,7 +345,7 @@ module.exports = (function () {
         resolve(result);
       });
     });
-    console.log('Encounters ni hizi:', patientEncounters);
+
     var patientReminders = new Promise(function (resolve, reject) {
       var extendedRequest = request;
       extendedRequest.query.limit = 1;
