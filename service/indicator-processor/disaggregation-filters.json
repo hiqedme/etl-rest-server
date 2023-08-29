@@ -20,7 +20,16 @@
     "expression": "timestampdiff(year,birthdate,@endDate) >= 1 and timestampdiff(year,birthdate,@endDate) <= 9",
     "description": "by age (>=1 and <=9)"
   },
-
+  "age_1_to_4": {
+    "label": "age_1_to_4",
+    "expression": "timestampdiff(year,birthdate,@endDate) >= 1 and timestampdiff(year,birthdate,@endDate) <= 4",
+    "description": "by age (>=1 and <=4)"
+  },
+  "age_5_to_9": {
+    "label": "age_5_to_9",
+    "expression": "timestampdiff(year,birthdate,@endDate) >= 5 and timestampdiff(year,birthdate,@endDate) <= 9",
+    "description": "by age (>=5 and <=9)"
+  },
   "age_15_and_older": {
     "label": "age_15_and_older",
     "expression": "timestampdiff(year,birthdate,@endDate) >= 15",

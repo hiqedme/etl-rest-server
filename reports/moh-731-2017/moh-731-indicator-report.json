@@ -363,21 +363,57 @@
         "sql": "count(distinct if($expression,t1.person_id,null))"
       },
       {
-        "label": "starting_art_below_1",
-        "expression": "starting_art_below_1",
+        "label": "starting_art_male_below_1",
+        "expression": "starting_art_male_below_1",
         "sql": "count(distinct if($expression,t1.person_id,null))",
         "disaggregation": {
           "indicator": "starting_art_total",
-          "filters": ["age_below_1"]
+          "filters": ["male", "age_below_1"]
         }
       },
       {
-        "label": "starting_art_1_to_9",
-        "expression": "starting_art_1_to_9",
+        "label": "starting_art_female_below_1",
+        "expression": "starting_art_female_below_1",
         "sql": "count(distinct if($expression,t1.person_id,null))",
         "disaggregation": {
           "indicator": "starting_art_total",
-          "filters": ["age_1_to_9"]
+          "filters": ["female", "age_below_1"]
+        }
+      },
+      {
+        "label": "starting_art_male_1_to_4",
+        "expression": "starting_art_male_1_to_4",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "starting_art_total",
+          "filters": ["male", "age_1_to_4"]
+        }
+      },
+      {
+        "label": "starting_art_female_1_to_4",
+        "expression": "starting_art_female_1_to_4",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "starting_art_total",
+          "filters": ["female", "age_1_to_4"]
+        }
+      },
+      {
+        "label": "starting_art_male_5_to_9",
+        "expression": "starting_art_male_5_to_9",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "starting_art_total",
+          "filters": ["male", "age_5_to_9"]
+        }
+      },
+      {
+        "label": "starting_art_female_5_to_9",
+        "expression": "starting_art_female_5_to_9",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "starting_art_total",
+          "filters": ["female", "age_5_to_9"]
         }
       },
       {
