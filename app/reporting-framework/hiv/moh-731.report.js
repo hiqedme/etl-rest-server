@@ -38,6 +38,7 @@ export class Moh731Report extends MultiDatasetPatientlistReport {
               } else {
                 let finalResult = [];
                 const reportProcessorHelpersService = new ReportProcessorHelpersService();
+
                 for (let result of results) {
                   if (
                     result.report &&

@@ -18,7 +18,7 @@ export class Moh731Service {
         } else if (reportParams.reportName === 'MOH-731-report-2017') {
           results.sectionDefinitions = moh731V2017SectionDefinitions;
         }
-
+        console.log('SectionList:', results);
         resolve(results);
       }).catch((errors) => {
         reject(errors);
