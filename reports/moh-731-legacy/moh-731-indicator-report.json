@@ -274,6 +274,24 @@
         }
       },
       {
+        "label": "screened_for_tb_below_15",
+        "expression": "screened_for_tb_below_15",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "screened_for_tb",
+          "filters": ["age_below_15"]
+        }
+      },
+      {
+        "label": "screened_for_tb_15_and_older",
+        "expression": "screened_for_tb_15_and_older",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "screened_for_tb",
+          "filters": ["age_15_and_older"]
+        }
+      },
+      {
         "label": "screened_for_tb_females_below_15",
         "expression": "screened_for_tb_females_below_15",
         "sql": "count(distinct if($expression,t1.person_id,null))",

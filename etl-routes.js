@@ -2807,6 +2807,7 @@ module.exports = (function () {
               moh731
                 .generateReport()
                 .then((results) => {
+                  console.log('results::', results);
                   reply(results);
                 })
                 .catch((err) => {

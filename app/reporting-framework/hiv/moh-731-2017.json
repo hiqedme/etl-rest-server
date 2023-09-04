@@ -147,12 +147,17 @@
     "indicators": [
       {
         "label": "Screened for TB - Below 15yrs",
-        "ref": "HV03-029",
-        "indicator": "dc__age_range__below_15_years__screened_for_tb"
+        "ref": ["HV03-029"],
+        "indicator": ["0", "dc__age_range__below_15_years__screened_for_tb"]
       },
       {
         "label": "Screened for TB - Above 15yrs",
-        "ref": "HV03-030",
+        "ref": ["HV03-030"],
+        "indicator": ["0", "dc__age_range__older_than_15__screened_for_tb"]
+      },
+      {
+        "label": "Total Screened for TB",
+        "ref": "HV03",
         "indicator": "dc__age_range__older_than_15__screened_for_tb"
       }
     ]
@@ -162,13 +167,18 @@
     "sectionTitle": "3.4 Starting TPT ",
     "indicators": [
       {
-        "label": "Screened for TB - Below 15yrs",
+        "label": "Starting TPT  - Below 15yrs",
         "ref": "HV03-031",
-        "indicator": "dc__age_range__below_15_years__started_ipt"
+        "indicator": ["0", "dc__age_range__below_15_years__started_ipt"]
       },
       {
-        "label": "Screened for TB - Above 15yrs",
+        "label": "Starting TPT - Above 15yrs",
         "ref": "HV03-032",
+        "indicator": ["0", "dc__age_range__older_than_15__started_ipt"]
+      },
+      {
+        "label": "Starting TPT - Total",
+        "ref": "HV03",
         "indicator": "dc__age_range__older_than_15__started_ipt"
       }
     ]

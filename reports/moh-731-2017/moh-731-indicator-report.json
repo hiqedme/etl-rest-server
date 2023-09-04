@@ -690,6 +690,24 @@
         }
       },
       {
+        "label": "newly_started_IPT_below_15_years",
+        "expression": "newly_started_IPT_below_15_years",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "newly_started_IPT",
+          "filters": ["below_15_years"]
+        }
+      },
+      {
+        "label": "newly_started_IPT_older_than_15",
+        "expression": "newly_started_IPT_older_than_15",
+        "sql": "count(distinct if($expression,t1.person_id,null))",
+        "disaggregation": {
+          "indicator": "newly_started_IPT",
+          "filters": ["older_than_15"]
+        }
+      },
+      {
         "label": "newly_started_IPT",
         "expression": "newly_started_IPT",
         "sql": "count(distinct if($expression,t1.person_id,null))"
