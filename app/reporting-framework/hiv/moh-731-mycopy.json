@@ -147,17 +147,17 @@
     "indicators": [
       {
         "label": "Screened for TB - Below 15yrs",
-        "ref": ["HV03-029", "HV03-029"],
+        "ref": ["HV03-029"],
         "indicator": ["0", "dc__age_range__below_15_years__screened_for_tb"]
       },
       {
         "label": "Screened for TB - Above 15yrs",
-        "ref": ["HV03-030", "HV03-029"],
+        "ref": ["HV03-030"],
         "indicator": ["0", "dc__age_range__older_than_15__screened_for_tb"]
       },
       {
         "label": "Total Screened for TB",
-        "ref": ["HV03", "HV03-029"],
+        "ref": "HV03",
         "indicator": ["0", "dc__age_range__older_than_15__screened_for_tb"]
       }
     ]
@@ -168,12 +168,12 @@
     "indicators": [
       {
         "label": "Starting TPT  - Below 15yrs",
-        "ref": ["HV03-031", "HV03-031"],
+        "ref": "HV03-031",
         "indicator": ["0", "dc__age_range__below_15_years__started_ipt"]
       },
       {
         "label": "Starting TPT - Above 15yrs",
-        "ref": ["HV03-032", "HV03-032"],
+        "ref": "HV03-032",
         "indicator": ["0", "dc__age_range__older_than_15__started_ipt"]
       },
       {
@@ -205,6 +205,144 @@
         "label": "Facility",
         "ref": "HV03-036",
         "indicator": ""
+      }
+    ]
+  },
+  {
+    "sectionTitle": "3.6 Nutrition and HIV",
+    "indicators": [
+      {
+        "label": "Nutrition Assess less than 15yrs",
+        "ref": "HV03-067",
+        "indicator": ""
+      },
+      {
+        "label": "Nutrition Assess greater than 15yrs",
+        "ref": "HV03-068",
+        "indicator": ""
+      },
+      {
+        "label": "Nutrition Assess Total (Sum HV03-067 to HV03-068)",
+        "ref": "HV03-069",
+        "indicator": ""
+      },
+      {
+        "label": "Malnourished less than 15",
+        "ref": "HV03-070",
+        "indicator": ""
+      },
+      {
+        "label": "Malnourished greater than 15",
+        "ref": "HV03-071",
+        "indicator": ""
+      },
+      {
+        "label": "Malnourished Total (Sum HV03-070 to HV03-071)",
+        "ref": "HV03-072",
+        "indicator": ""
+      },
+      {
+        "label": "FBP Provided less than 15",
+        "ref": "HV03-073",
+        "indicator": ""
+      },
+      {
+        "label": "FBP Provided greater than 15",
+        "ref": "HV03-074",
+        "indicator": ""
+      },
+      {
+        "label": "FBP Provided (Sum HV03-073 to HV03-074)",
+        "ref": "HV03-075",
+        "indicator": ""
+      }
+    ]
+  },
+  {
+    "sectionTitle": "3.7 HIV in TB Clinic",
+    "indicators": [
+      {
+        "label": "TB cases New",
+        "ref": "HV03-076",
+        "indicator": ""
+      },
+      {
+        "label": "TB cases KP",
+        "ref": "HV03-077",
+        "indicator": "HIV_patients_newly_enrolled_into_TB_treatment"
+      },
+      {
+        "label": "TB Cases Tested HIV",
+        "ref": "HV03-078",
+        "indicator": ""
+      },
+      {
+        "label": "TB Known Status (Sum HV03-077 and HV03-078)",
+        "ref": "HV03-079",
+        "indicator": ""
+      },
+      {
+        "label": "TB New HIV Positive",
+        "ref": "HV03-080",
+        "indicator": ["0", "TB_patients_newly_enrolled_into_HIV_care"]
+      },
+      {
+        "label": "TB TOTAL HIV Positive (Sum HV03-077 and HV03-080)",
+        "ref": "HV03-081",
+        "indicator": [
+          "0",
+          "newly_identified_HIV_positive_patient_on_TB_treatment"
+        ]
+      },
+      {
+        "label": "TB already on HAART",
+        "ref": "HV03-082",
+        "indicator": ["0", "patients_on_ARV_starting_TB_treatment"]
+      },
+      {
+        "label": "TB starting HAART",
+        "ref": "HV03-083",
+        "indicator": ["0", "TB_patients_starting_ARV_medication"]
+      },
+      {
+        "label": "TB  Total on HAART (Sum HV03-082 and HV03-083)",
+        "ref": "HV03-084",
+        "indicator": ["0", "newly_identified_TB_patients_on_ARVs"]
+      }
+    ]
+  },
+  {
+    "sectionTitle": "5. Post Exposure Prophylaxis",
+    "indicators": [
+      {
+        "label": "Exposed Occupational",
+        "ref": "HV05-01",
+        "indicator": ["0", "hiv_exposed_occupational"]
+      },
+      {
+        "label": "Exposed Other",
+        "ref": "HV05-02",
+        "indicator": ["0", "hiv_exposed_non_occupational"]
+      },
+      {
+        "label": "Exposed Total (Sum HV05-01 and HV05-02)",
+        "ref": "HV05-03",
+        "indicator": ["0", "total_hiv_exposed"]
+      },
+      {
+        "label": "PEP Occupational",
+        "ref": "HV05-04",
+        "indicator": ["0", "started_PEP_occupational"]
+      },
+      {
+        "label": "PEP Other",
+        "ref": "HV05-05",
+        "indicator": ["0", "started_PEP_non_occupational"]
+      },
+      {
+        "label": "PEP Total (Sum HV05-04 and HV05-05)",
+        "ref": "HV03-06",
+        "indicator": ["0", "total_started_PEP"]
       }
     ]
   }
