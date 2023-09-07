@@ -190,6 +190,11 @@
     },
     {
       "type": "simple_column",
+      "alias": "started_tb_tx_this_month",
+      "column": "hmsd.started_tb_tx_this_month"
+    },
+    {
+      "type": "simple_column",
       "alias": "current_in_care",
       "column": "hmsd.active_in_care_this_month"
     },
