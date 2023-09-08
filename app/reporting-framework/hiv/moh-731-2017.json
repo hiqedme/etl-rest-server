@@ -339,7 +339,7 @@
       {
         "label": "TB cases New",
         "ref": "HV03-061",
-        "indicator": "started_TB_treatment_within_reporting_period"
+        "indicator": "started_tb_tx_this_month"
       },
       {
         "label": "TB New_Known HIV Positive(KPs)",

@@ -76,6 +76,14 @@
     },
     {
       "type": "derived_column",
+      "alias": "started_tb_tx_this_month",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "sum(hmsd.started_tb_tx_this_month)"
+      }
+    },
+    {
+      "type": "derived_column",
       "alias": "current_in_care",
       "expressionType": "simple_expression",
       "expressionOptions": {
