@@ -57,16 +57,6 @@
           "dc__age_range__older_than_24__gender__F__started_art",
           "dc__age_range__older_than_24__gender__M__started_art"
         ]
-      },
-      {
-        "label": "Starting on ART - Total (Sum HV03-01 to HV03-013)",
-        "ref": "HV03",
-        "indicator": "started_art"
-      },
-      {
-        "label": "Starting on ART - key population",
-        "ref": "HV03",
-        "indicator": ""
       }
     ]
   },
@@ -121,7 +111,6 @@
           "dc__gender__M__age_range__20_to_24__current_on_art"
         ]
       },
-
       {
         "label": "Currently on ART - 25yrs and older(M)",
         "ref": ["HV03-28", "HV03-27"],
@@ -129,16 +118,6 @@
           "dc__gender__F__age_range__older_than_24__current_on_art",
           "dc__gender__M__age_range__older_than_24__current_on_art"
         ]
-      },
-      {
-        "label": "Total currently on ART (Sum HV03-015 to HV03-028)",
-        "ref": "HV03",
-        "indicator": "current_on_art"
-      },
-      {
-        "label": "Currently on ART - key population",
-        "ref": "HV03",
-        "indicator": ""
       }
     ]
   },
@@ -153,11 +132,6 @@
       {
         "label": "Screened for TB - Above 15yrs",
         "ref": ["HV03-030", "HV03-029"],
-        "indicator": "dc__age_range__older_than_15__screened_for_tb"
-      },
-      {
-        "label": "Total Screened for TB",
-        "ref": ["HV03", "HV03-029"],
         "indicator": "dc__age_range__older_than_15__screened_for_tb"
       }
     ]
@@ -174,11 +148,6 @@
       {
         "label": "Starting TPT - Above 15yrs",
         "ref": ["HV03-032", "HV03-032"],
-        "indicator": "dc__age_range__older_than_15__started_ipt"
-      },
-      {
-        "label": "Starting TPT - Total",
-        "ref": "HV03",
         "indicator": "dc__age_range__older_than_15__started_ipt"
       }
     ]
@@ -212,122 +181,142 @@
     "sectionTitle": "3.6 Nutrition and HIV",
     "indicators": [
       {
-        "label": "SAM+ 0-59 Months",
+        "label": "NUMBER SAM+",
+        "ref": "subtitle",
+        "indicator": ""
+      },
+      {
+        "label": "0-59 Months",
         "ref": "HV03-037",
         "indicator": ""
       },
       {
-        "label": "SAM+ 5-9 Years",
+        "label": "5-9 Years",
         "ref": "HV03-038",
         "indicator": ""
       },
       {
-        "label": "SAM+ 10-14 Years",
+        "label": "10-14 Years",
         "ref": "HV03-039",
         "indicator": ""
       },
       {
-        "label": "SAM+ 15-19 Years",
+        "label": "5-19 Years",
         "ref": "HV03-040",
         "indicator": ""
       },
       {
-        "label": "SAM+ 20+ Years",
+        "label": "20+ Years",
         "ref": "HV03-041",
         "indicator": ""
       },
       {
-        "label": "SAM+ PBFW",
+        "label": "PBFW",
         "ref": "HV03-042",
         "indicator": ""
       },
       {
-        "label": "MAM+ 0-59 Months",
+        "label": "NUMBER MAM+",
+        "ref": "subtitle",
+        "indicator": ""
+      },
+      {
+        "label": "0-59 Months",
         "ref": "HV03-043",
         "indicator": ""
       },
       {
-        "label": "MAM+ 5-9 Years",
+        "label": "5-9 Years",
         "ref": "HV03-044",
         "indicator": ""
       },
       {
-        "label": "MAM+ 10-14 Years",
+        "label": "10-14 Years",
         "ref": "HV03-045",
         "indicator": ""
       },
       {
-        "label": "MAM+ 15-19 Years",
+        "label": "15-19 Years",
         "ref": "HV03-046",
         "indicator": ""
       },
       {
-        "label": "MAM+ 20+ Years",
+        "label": "20+ Years",
         "ref": "HV03-047",
         "indicator": ""
       },
       {
-        "label": "MAM+ PBFW",
+        "label": "PBFW",
         "ref": "HV03-048",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods 0-59 Months",
+        "label": "SAM+ receiving therapeutic foods",
+        "ref": "subtitle",
+        "indicator": ""
+      },
+      {
+        "label": "0-59 Months",
         "ref": "HV03-049",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods 5-9 Years",
+        "label": "5-9 Years",
         "ref": "HV03-050",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods 10-14 Years",
+        "label": "10-14 Years",
         "ref": "HV03-051",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods 15-19 Years",
+        "label": "15-19 Years",
         "ref": "HV03-052",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods 20+ Years",
+        "label": "20+ Years",
         "ref": "HV03-053",
         "indicator": ""
       },
       {
-        "label": "SAM+ receiving therapeutic foods PBFW",
+        "label": "PBFW",
         "ref": "HV03-054",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods 0-59 Months",
+        "label": "MAM+ receiving Supplemental foods",
+        "ref": "subtitle",
+        "indicator": ""
+      },
+      {
+        "label": "0-59 Months",
         "ref": "HV03-055",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods 5-9 Years",
+        "label": "5-9 Years",
         "ref": "HV03-056",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods 10-14 Years",
+        "label": "10-14 Years",
         "ref": "HV03-057",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods 15-19 Years",
+        "label": "15-19 Years",
         "ref": "HV03-058",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods 20+ Years",
+        "label": "20+ Years",
         "ref": "HV03-059",
         "indicator": ""
       },
       {
-        "label": "MAM+ receiving Supplemental foods PBFW",
+        "label": "PBFW",
         "ref": "HV03-060",
         "indicator": ""
       }
@@ -352,13 +341,13 @@
         "indicator": ""
       },
       {
-        "label": "TB_New_Known HIV Positive(KP) on HAART",
-        "ref": "HV03-080",
+        "label": "TB_New_Known HIV Positive(KP)",
+        "ref": "HV03-064",
         "indicator": "TB_patients_newly_enrolled_into_HIV_care"
       },
       {
         "label": "TB_New starting HAART",
-        "ref": "HV03-083",
+        "ref": "HV03-065",
         "indicator": "TB_patients_starting_ARV_medication"
       }
     ]
@@ -377,11 +366,6 @@
         "indicator": "hiv_exposed_non_occupational"
       },
       {
-        "label": "Exposed Total (Sum HV05-01 and HV05-02)",
-        "ref": "HV05-03",
-        "indicator": "total_hiv_exposed"
-      },
-      {
         "label": "PEP Occupational",
         "ref": "HV05-03",
         "indicator": "started_PEP_occupational"
@@ -390,11 +374,6 @@
         "label": "PEP Other",
         "ref": "HV05-04",
         "indicator": "started_PEP_non_occupational"
-      },
-      {
-        "label": "PEP Total (Sum HV05-04 and HV05-05)",
-        "ref": "HV03-06",
-        "indicator": "total_started_PEP"
       }
     ]
   }
