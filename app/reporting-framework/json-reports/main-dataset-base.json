@@ -156,8 +156,12 @@
             "value": "0_to_1"
           },
           {
-            "condition": "hmsd.age between 1 and 9",
-            "value": "1_to_9"
+            "condition": "hmsd.age between 1 and 4",
+            "value": "1_to_4"
+          },
+          {
+            "condition": "hmsd.age between 5 and 9",
+            "value": "5_to_9"
           },
           {
             "condition": "hmsd.age between 10 and 14",
