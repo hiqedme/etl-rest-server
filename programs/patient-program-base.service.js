@@ -28,8 +28,6 @@ function getPatientProgramEnrollmentVisits(
   retroSpective,
   visitDate
 ) {
-  const clone = getAllProgramsConfig();
-
   return programVisitTypes.getPatientVisitTypes(
     patientUuid,
     programUuid,

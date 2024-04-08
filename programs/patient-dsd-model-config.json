@@ -1146,8 +1146,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -1575,7 +1587,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -1601,8 +1618,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -2030,7 +2059,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -2056,8 +2090,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -2485,7 +2531,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -2511,8 +2562,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -2940,7 +3003,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -2966,8 +3034,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -3395,7 +3475,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -3421,8 +3506,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -3850,7 +3947,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -3876,8 +3978,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -4305,7 +4419,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -4331,8 +4450,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -4760,7 +4891,12 @@
       "80839137-9711-483f-a239-dfd383d020f6",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -4786,8 +4922,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -5215,7 +5363,12 @@
       "f16403bb-c5df-46ba-afce-14f8aea2fabd",
       "e950ade1-041d-4dda-b0cd-bb81dad8694e"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -5241,8 +5394,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [
@@ -5271,7 +5436,12 @@
       "f16403bb-c5df-46ba-afce-14f8aea2fabd",
       "80839137-9711-483f-a239-dfd383d020f6"
     ],
-    "dataDependencies": [""],
+    "dataDependencies": [
+      "patient",
+      "enrollment",
+      "patientEncounters",
+      "latestCovidAssessment"
+    ],
     "enrollmentOptions": {
       "requiredProgramQuestions": [
         {
@@ -5297,8 +5467,20 @@
       ],
       "stateChangeEncounterTypes": {
         "enrollment": [],
-        "transfer": [],
-        "discharge": []
+        "transfer": [
+          {
+            "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
+            "name": "AMPATH POC Transfer Out Form v0.01",
+            "required": true
+          }
+        ],
+        "discharge": [
+          {
+            "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
+            "name": "AMPATH POC HIV Exit Care Form v1.1",
+            "required": true
+          }
+        ]
       }
     },
     "visitTypes": [

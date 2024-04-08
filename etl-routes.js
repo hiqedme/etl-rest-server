@@ -1103,6 +1103,7 @@ module.exports = (function () {
               reply(programVisits);
             })
             .catch((error) => {
+              console.log('Error getPatientProgramVisits', error);
               reply(Boom.badImplementation('An internal error occurred'));
             });
         },
@@ -1391,11 +1392,9 @@ module.exports = (function () {
               )
             );
           }
-          console.log('Program Configs');
           patientProgramService
             .validateEnrollmentOptions(requestParams.patientUuid)
             .then(function (programConfigs) {
-              console.log('programConfigs', programConfigs);
               reply(programConfigs);
             })
             .catch(function (err) {
@@ -1414,43 +1413,6 @@ module.exports = (function () {
         }
       }
     },
-    // {
-    //   method: 'GET',
-    //   path: '/etl/patient-program-config',
-    //   config: {
-    //     auth: 'simple',
-    //     plugins: {},
-    //     handler: function (request, reply) {
-    //       var requestParams = Object.assign({}, request.query);
-    //       if (!requestParams.patientUuid) {
-    //         reply(
-    //           Boom.badImplementation(
-    //             "The patient's uuid(universally unique " +
-    //               'identifier must be provided as a query param'
-    //           )
-    //         );
-    //       }
-    //       patientProgramService
-    //         .validateEnrollmentOptions(requestParams.patientUuid)
-    //         .then(function (programConfigs) {
-    //           reply(programConfigs);
-    //         })
-    //         .catch(function (err) {
-    //           console.log('there is an error', err);
-    //           reply(Boom.badImplementation(err));
-    //         });
-    //     },
-    //     description: 'Get a list of programs ',
-    //     notes: 'Returns a  list of programs',
-    //     tags: ['api'],
-    //     validate: {
-    //       options: {
-    //         allowUnknown: true
-    //       },
-    //       params: {}
-    //     }
-    //   }
-    // },
     {
       method: 'GET',
       path: '/etl/location/{uuid}/monthly-appointment-visits',
@@ -6368,6 +6330,35 @@ module.exports = (function () {
         },
         description: 'Get cohort viral load suppression rate',
         notes: 'Api endpoint that returns cohort viral load suppression rate',
+        tags: ['api']
+      }
+    },
+    {
+      method: 'GET',
+      path: '/etl/amrs_id',
+      config: {
+        auth: 'simple',
+        plugins: {},
+        handler: async function (request, reply) {
+          const axios = require('axios');
+          try {
+            const querystring = require('querystring');
+            const formData = {
+              user: '1'
+            };
+            const formBody = querystring.stringify(formData);
+            request = await axios.post(
+              'https://ngx.ampath.or.ke/amrs-id-generator/generateidentifier',
+              formBody
+            );
+            const identifier = request.data.identifier;
+            reply.response(identifier);
+          } catch (error) {
+            reply.response('Internal Server Error').code(500);
+          }
+        },
+        description: 'Get AMRS ID For AMRS 3.X Use Auto generation',
+        notes: 'Api endpoint that returns AMRS ID in string format',
         tags: ['api']
       }
     }
