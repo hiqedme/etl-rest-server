@@ -30,10 +30,10 @@
       {
         "uuid": "f0faccb7-657e-413c-abad-54f13409d106",
         "name": "STANDARD CARE MODEL",
-        "status": "positive_new"
+        "status": "positive"
       },
       {
-        "uuid": "a89ef6fa-1350-11df-a1f1-0026b9348838",
+        "uuid": "7843bd0e-2309-44dd-963b-1380789c372c",
         "name": "HIV SERVICE",
         "status": "positive_new"
       },
