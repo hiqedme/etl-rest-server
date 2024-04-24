@@ -5520,14 +5520,14 @@
           {
             "uuid": "cbe2d31d-2201-44ce-b52e-fbd5dc7cff33",
             "name": "AMPATH POC Transfer Out Form v0.01",
-            "required": true
+            "required": false
           }
         ],
         "discharge": [
           {
             "uuid": "9765992c-6279-46cc-915b-452a73e7dab5",
             "name": "AMPATH POC HIV Exit Care Form v1.1",
-            "required": true
+            "required": false
           }
         ]
       }
@@ -5903,6 +5903,109 @@
           {
             "uuid": "8010fabc-2e58-4160-a201-fce9c609d2fa",
             "display": "COVIDASSESSMENT"
+          }
+        ]
+      },
+      {
+        "uuid": "578a6132-4686-4190-809f-3f8f49bdd1c6",
+        "allowedIf": "programLocation === intendedVisitLocationUuid && isFirstAMPATHHIVVisit",
+        "name": "Linkage Visit",
+        "encounterTypes": [
+          {
+            "uuid": "93b4c47b-ce5c-4d83-bef2-f941199e999d",
+            "display": "PHCTLINKAGE"
+          },
+          {
+            "uuid": "ae35ed69-e07c-4209-93ce-f23733aa816b",
+            "display": "FAMILYSTATUS"
+          },
+          {
+            "uuid": "466d6707-8429-4e61-b5a0-d63444f5ad35",
+            "display": "COVIDSCREENING"
+          },
+          {
+            "uuid": "afabceae-61d4-42b6-8f6a-fff48a7797ea",
+            "display": "COVIDCASEREPORTING"
+          }
+        ]
+      },
+      {
+        "uuid": "fcc9a836-0200-45f2-81b4-b4a687a10247",
+        "name": "Treatment Supporter Visit",
+        "encounterTypes": [
+          {
+            "uuid": "693559d3-4e44-4d33-83f9-bc70ca56fe34",
+            "display": "TXSUPPORTERMEDREFILL"
+          },
+          {
+            "uuid": "987009c6-6f24-43f7-9640-c285d6553c63",
+            "display": "DRUGPICKUP"
+          },
+          {
+            "uuid": "a393699f-8e99-4727-81c3-873873022dd8",
+            "display": "MOBILITYSCREENING"
+          },
+          {
+            "uuid": "5b1ef308-ed8f-4a86-88a0-c29a30246740",
+            "display": "HIVCLINICALREFERRAL"
+          }
+        ]
+      },
+      {
+        "uuid": "06eca2a8-1da9-4ac4-95c6-15afedd4de21",
+        "name": "HIV Lab Visit",
+        "encounterTypes": [
+          {
+            "uuid": "5ef97eed-18f5-40f6-9fbf-a11b1f06484a",
+            "display": "LABORDERENCOUNTER"
+          },
+          {
+            "uuid": "5544894d-8add-4521-a0ea-c124c5886c8b",
+            "display": "POCLAB"
+          },
+          {
+            "uuid": "466d6707-8429-4e61-b5a0-d63444f5ad35",
+            "display": "COVIDSCREENING"
+          },
+          {
+            "uuid": "afabceae-61d4-42b6-8f6a-fff48a7797ea",
+            "display": "COVIDCASEREPORTING"
+          }
+        ]
+      },
+      {
+        "uuid": "40353c46-cd54-4629-a5d1-0a1f1108b19f",
+        "name": "Inpatient peer visit",
+        "encounterTypes": [
+          {
+            "uuid": "10a86a62-b771-44d1-b1ad-3b8496c7bc47",
+            "display": "INPATIENTPEER"
+          },
+          {
+            "uuid": "df55584c-1350-11df-a1f1-0026b9348838",
+            "display": "DEATHREPORT"
+          },
+          {
+            "uuid": "466d6707-8429-4e61-b5a0-d63444f5ad35",
+            "display": "COVIDSCREENING"
+          },
+          {
+            "uuid": "afabceae-61d4-42b6-8f6a-fff48a7797ea",
+            "display": "COVIDCASEREPORTING"
+          }
+        ]
+      },
+      {
+        "uuid": "f75d41c7-e09d-4e98-9b24-78a4ca1c1229",
+        "name": "Phone Follow Up Visit",
+        "encounterTypes": [
+          {
+            "uuid": "cac3b8e5-d8f8-4d4f-b791-8c43b4cc674b",
+            "display": "TELECARE"
+          },
+          {
+            "uuid": "466d6707-8429-4e61-b5a0-d63444f5ad35",
+            "display": "COVIDSCREENING"
           }
         ]
       }
