@@ -5505,7 +5505,7 @@
     ]
   },
   "7843bd0e-2309-44dd-963b-1380789c372c": {
-    "name": "HIV SERVICE",
+    "name": "HIV CARE SERVICE",
     "dataDependencies": [
       "patient",
       "enrollment",
