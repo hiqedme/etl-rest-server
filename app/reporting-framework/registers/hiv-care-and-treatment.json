@@ -1,0 +1,153 @@
+{
+  "name": "hiv-care-and-treatment-register-template",
+  "version": "1.0",
+  "tag": "hiv-care-and-treatment-template",
+  "description": "MOH 366 HIV Care and Treatment Daily Activity Register",
+  "uses": [],
+  "sources": [
+    {
+      "table": "etl.flat_hiv_summary_v15b",
+      "alias": "fhs",
+      "join": {
+        "type": "INNER JOIN",
+        "joinCondition": "p.person_id = fhs.person_id"
+      }
+    },
+    {
+      "table": "amrs.person",
+      "alias": "p",
+      "join": {
+        "type": "INNER JOIN",
+        "joinCondition": "p.person_id = fhs.person_id"
+      }
+    },
+    {
+      "table": "amrs.location",
+      "alias": "l",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "l.location_id = fhs.location_id"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "pi.patient_id = fhs.person_id AND pi.identifier_type = 5"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi2",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "pi2.patient_id = fhs.person_id AND pi2.identifier_type = 28"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi3",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "pi3.patient_id = fhs.person_id AND pi3.identifier_type = 45"
+      }
+    }
+  ],
+  "columns": [
+    {
+      "type": "simple_column",
+      "alias": "DATE",
+      "column": "fhs.encounter_datetime"
+    },
+    {
+      "type": "simple_column",
+      "alias": "National_ID",
+      "column": "pi.identifier"
+    },
+    {
+      "type": "simple_column",
+      "alias": "NUPI",
+      "column": "pi3.identifier"
+    },
+    {
+      "type": "simple_column",
+      "alias": "CCC_Number",
+      "column": "pi2.identifier"
+    },
+    {
+      "type": "derived_column",
+      "alias": "Age",
+      "expressionType": "complex_expression",
+      "expressionOptions": {
+        "expression": "EXTRACT(YEAR FROM fhs.encounter_datetime) - EXTRACT(YEAR FROM p.birthdate) - CASE WHEN (EXTRACT(MONTH FROM fhs.encounter_datetime) < EXTRACT(MONTH FROM p.birthdate)) OR (EXTRACT(MONTH FROM fhs.encounter_datetime) = EXTRACT(MONTH FROM p.birthdate) AND EXTRACT(DAY FROM fhs.encounter_datetime) < EXTRACT(DAY FROM p.birthdate)) THEN 1 ELSE 0 END"
+      }
+    },
+    {
+      "type": "derived_column",
+      "alias": "started_on_art",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "caseOptions": [
+          {
+            "condition": "DATE(fhs.encounter_datetime) = DATE(fhs.hiv_start_date)",
+            "value": "1"
+          },
+          {
+            "condition": "ELSE",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "type": "simple_column",
+      "alias": "screened_for_tb",
+      "column": "fhs.tb_screen"
+    },
+    {
+      "type": "derived_column",
+      "alias": "started_on_tpt",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "caseOptions": [
+          {
+            "condition": "DATE(fhs.encounter_datetime) = DATE(fhs.ipt_start_date)",
+            "value": "1"
+          },
+          {
+            "condition": "ELSE",
+            "value": "0"
+          }
+        ]
+      }
+    },
+    {
+      "type": "simple_column",
+      "alias": "Dsd_status",
+      "column": "NULL"
+    },
+    {
+      "type": "simple_column",
+      "alias": "Dsd_type",
+      "column": "NULL"
+    },
+    {
+      "type": "simple_column",
+      "alias": "remarks",
+      "column": "NULL"
+    }
+  ],
+  "filters": [
+    {
+      "condition": "fhs.is_clinical_encounter = 1"
+    },
+    {
+      "condition": "DATE(fhs.encounter_datetime) = '2024-04-02'"
+    },
+    {
+      "condition": "fhs.location_id IN (315)"
+    }
+  ],
+  "groupBy": []
+}
