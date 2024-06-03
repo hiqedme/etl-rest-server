@@ -1,0 +1,156 @@
+{
+  "name": "prep-register-template",
+  "version": "1.0",
+  "tag": "prep-register-template",
+  "description": "MOH 267 PrEP Daily Activity Register",
+  "uses": [],
+  "sources": [
+    {
+      "table": "etl.flat_prep_summary_v1_1",
+      "alias": "fps",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "l.location_id = fps.location_id"
+      }
+    },
+    {
+      "table": "amrs.location",
+      "alias": "l",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "fps.location_id = l.location_id"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "fps.person_id = pi.patient_id AND pi.identifier_type = 44"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi2",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "fps.person_id = pi2.patient_id AND pi2.identifier_type = 5"
+      }
+    },
+    {
+      "table": "amrs.patient_identifier",
+      "alias": "pi3",
+      "join": {
+        "type": "LEFT JOIN",
+        "joinCondition": "fps.person_id = pi3.patient_id AND pi3.identifier_type = 45"
+      }
+    }
+  ],
+  "columns": [
+    {
+      "type": "simple_column",
+      "alias": "",
+      "column": "l.name"
+    },
+    {
+      "type": "simple_column",
+      "alias": "",
+      "column": "fps.encounter_id"
+    },
+    {
+      "type": "simple_column",
+      "alias": "PrEP_Number",
+      "column": "pi.identifier"
+    },
+    {
+      "type": "simple_column",
+      "alias": "National_ID",
+      "column": "pi2.identifier"
+    },
+    {
+      "type": "simple_column",
+      "alias": "NUPI",
+      "column": "pi3.identifier"
+    },
+    {
+      "type": "simple_column",
+      "alias": "Date_Of_Visit",
+      "column": "fps.encounter_datetime"
+    },
+    {
+      "type": "derived_column",
+      "alias": "Age",
+      "expressionType": "complex_expression",
+      "expressionOptions": {
+        "expression": "EXTRACT(YEAR FROM fps.encounter_datetime) - EXTRACT(YEAR FROM fps.birthdate) - CASE WHEN (EXTRACT(MONTH FROM fps.encounter_datetime) < EXTRACT(MONTH FROM fps.birthdate)) OR (EXTRACT(MONTH FROM fps.encounter_datetime) = EXTRACT(MONTH FROM fps.birthdate) AND EXTRACT(DAY FROM fps.encounter_datetime) < EXTRACT(DAY FROM fps.birthdate)) THEN 1 ELSE 0 END"
+      }
+    },
+    {
+      "type": "simple_column",
+      "alias": "Sex",
+      "column": "fps.gender"
+    },
+    {
+      "type": "simple_column",
+      "alias": "",
+      "column": "fps.population_type"
+    },
+    {
+      "type": "simple_column",
+      "alias": "client_prep_status",
+      "column": "NULL"
+    },
+    {
+      "type": "simple_column",
+      "alias": "prep_method",
+      "column": "NULL"
+    },
+    {
+      "type": "derived_column",
+      "alias": "HIV_result",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "caseOptions": [
+          {
+            "condition": "COALESCE(fps.hiv_rapid_test_result) = 664",
+            "value": "'N'"
+          },
+          {
+            "condition": "COALESCE(fps.hiv_rapid_test_result) = 703",
+            "value": "'P'"
+          }
+        ]
+      }
+    },
+    {
+      "type": "simple_column",
+      "alias": "with_STI",
+      "column": "NULL"
+    },
+    {
+      "type": "derived_column",
+      "alias": "remarks",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "caseOptions": [
+          {
+            "condition": "",
+            "value": "COALESCE(fps.initiation_reason, fps.discontinued_reason)"
+          }
+        ]
+      }
+    }
+  ],
+  "filters": [
+    {
+      "condition": "fps.encounter_datetime >= '2024-01-01 '"
+    },
+    {
+      "condition": "fps.encounter_datetime <= '2024-01-31'"
+    },
+    {
+      "condition": "fps.location_id = 1"
+    }
+  ],
+  "groupBy": []
+}
