@@ -112,13 +112,13 @@
     "sectionTitle": "Client Disengagements",
     "indicators": [
       {
-        "label": "Cumulative LTFUs (since October 2020) with outcomes",
-        "description": "All lost patients since october 2020 with their outcomes today (BTC, TO, Dead or still LTFU)",
+        "label": "Cumulative LTFUs (since October 2023) with outcomes",
+        "description": "All lost patients since october 2023 with their outcomes today (BTC, TO, Dead or still LTFU)",
         "indicator": "is_ltfu_after_sep_total"
       },
       {
-        "label": "Target to bring back (Unresolved LTFUs as from October 2020)",
-        "description": "All LTFUs since october 2020 without outcomes",
+        "label": "Target to bring back (Unresolved LTFUs as from October 2023)",
+        "description": "All LTFUs since october 2023 without outcomes",
         "indicator": "is_ltfu_after_sep_not_resolved"
       },
       {
