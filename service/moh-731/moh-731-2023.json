@@ -15,7 +15,10 @@
       {
         "label": "Enrolled in care - 10 to 14yrs(M)",
         "ref": "HV03-003",
-        "indicator": "enrolled_in_care_males_10_to_14"
+        "indicator": [
+          "dc__gender__F__age_range__10_to_14__enrolled_this_month",
+          "dc__gender__M__age_range__10_to_14__enrolled_this_month"
+        ]
       },
       {
         "label": "Enrolled in care - 10 to 14yrs(F)",
@@ -25,7 +28,10 @@
       {
         "label": "Enrolled in care - 15 to 19yrs(M)",
         "ref": "HV03-005",
-        "indicator": "enrolled_in_care_males_15_to_19"
+        "indicator": [
+          "enrolled_in_care_females_15_to_19",
+          "enrolled_in_care_males_15_to_19"
+        ]
       },
       {
         "label": "Enrolled in care - 15 to 19yrs(F)",
@@ -35,7 +41,10 @@
       {
         "label": "Enrolled in care - 20 to 24yrs(M)",
         "ref": "HV03-007",
-        "indicator": "enrolled_in_care_males_20_to_24"
+        "indicator": [
+          "enrolled_in_care_females_20_to_24",
+          "enrolled_in_care_males_20_to_24"
+        ]
       },
       {
         "label": "Enrolled in care - 20 to 24yrs(F)",
@@ -45,7 +54,10 @@
       {
         "label": "Enrolled in care - 25yrs and older(M)",
         "ref": "HV03-009",
-        "indicator": "enrolled_in_care_males_25_and_older"
+        "indicator": [
+          "enrolled_in_care_females_25_and_older",
+          "enrolled_in_care_males_25_and_older"
+        ]
       },
       {
         "label": "Enrolled in care - 25yrs and older(F)",
@@ -88,9 +100,29 @@
     "sectionTitle": "3.3 Starting ART",
     "indicators": [
       {
-        "label": "Starting ART - Below 1yr",
+        "label": "Starting ART - Below 1yr(M)",
         "ref": "HV03-016",
-        "indicator": "starting_art_below_1"
+        "indicator": "starting_art_male_below_1"
+      },
+      {
+        "label": "Starting ART - Below 1yr(F)",
+        "ref": "HV03-016",
+        "indicator": "starting_art_female_below_1"
+      },
+      {
+        "label": "Starting ART - 1 to 4yrs",
+        "ref": "HV03-017",
+        "indicator": "starting_art_1_to_9"
+      },
+      {
+        "label": "Starting ART - 1 to 9yrs",
+        "ref": "HV03-017",
+        "indicator": "starting_art_1_to_9"
+      },
+      {
+        "label": "Starting ART - 1 to 9yrs",
+        "ref": "HV03-017",
+        "indicator": "starting_art_1_to_9"
       },
       {
         "label": "Starting ART - 1 to 9yrs",
@@ -425,7 +457,7 @@
       {
         "label": "TB cases New",
         "ref": "HV03-076",
-        "indicator": "started_TB_treatment_within_reporting_period"
+        "indicator": "started_tb_tx_this_month"
       },
       {
         "label": "TB cases KP",
