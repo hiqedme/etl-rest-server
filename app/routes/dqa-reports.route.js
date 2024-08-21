@@ -5,6 +5,7 @@ var privileges = authorizer.getAllPrivileges();
 var moment = require('moment');
 
 import { DQAChartAbstractionService } from '../../reports/DQA/dqa-chart-abstraction-service';
+import { HTSReportService } from '../../reports/HTS/hts-report-service';
 
 const routes = [
   {
@@ -58,6 +59,70 @@ const routes = [
                   endDate,
                   patientType
                 )
+                .then((result) => {
+                  reply(result);
+                })
+                .catch((error) => {
+                  reply(error);
+                });
+            });
+        }
+      },
+      description: 'Get DQA reports ',
+      notes: 'Returns DQA reports',
+      tags: ['api'],
+      validate: {
+        options: {
+          allowUnknown: true
+        },
+        params: {}
+      }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/etl/hts-report',
+    config: {
+      plugins: {
+        hapiAuthorization: {
+          role: privileges.canViewPatient
+        }
+      },
+      handler: function (request, reply) {
+        if (request.query.locationUuids) {
+          resolveLocationUuidToId
+            .resolveLocationUuidsParamsToIds(request.query)
+            .then((result) => {
+              let locations = result;
+              let limit = 300;
+              let patientType = '';
+              let startDate = '';
+              let endDate = '';
+              if (request.query.limit != null) {
+                limit = request.query.limit;
+              }
+              if (
+                request.query.startDate != null &&
+                request.query.endDate != null
+              ) {
+                startDate = moment(request.query.startDate)
+                  .endOf('month')
+                  .format('YYYY-MM-DD');
+                endDate = moment(request.query.endDate)
+                  .endOf('month')
+                  .format('YYYY-MM-DD');
+              }
+              if (request.query.patientType != null) {
+                patientType = request.query.patientType;
+              }
+              let offset = 0;
+              if (request.query.startIndex != null) {
+                offset = request.query.startIndex;
+              }
+
+              let service = new DQAChartAbstractionService();
+              service
+                .getHTSReport()
                 .then((result) => {
                   reply(result);
                 })

@@ -2,12 +2,17 @@ import ConfigService from '../config/config.service';
 const mysql = require('promise-mysql');
 let connectionPool = undefined;
 let MysqlConnectionService = {
-  getPool: () => {
+  getPool: (database) => {
     if (connectionPool !== undefined) {
       return connectionPool;
     }
     console.log('calling connection pool');
-    connectionPool = mysql.createPool(ConfigService.getConfig().mysql);
+    if ((database = 'afyastat')) {
+      connectionPool = mysql.createPool(ConfigService.getConfig().afyastat);
+    } else {
+      connectionPool = mysql.createPool(ConfigService.getConfig().mysql);
+    }
+
     return connectionPool;
   }
 };

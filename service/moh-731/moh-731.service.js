@@ -4,7 +4,9 @@ const Moment = require('moment');
 const _ = require('lodash');
 
 const moh731VlegacSectionDefinitions = require('../../service/moh-731/moh-731-legacy');
-const moh731V2017SectionDefinitions = require('../../service/moh-731/moh-731-2017');
+// const moh731V2017SectionDefinitions = require('../../service/moh-731/moh-731-2017');
+const moh731V2017SectionDefinitions = require('../../service/moh-731/moh-731-2023');
+
 export class Moh731Service {
   getAggregateReport(reportParams) {
     return new Promise(function (resolve, reject) {
@@ -53,7 +55,7 @@ export class Moh731Service {
     });
   }
 
-  resolveLocationUuidsToName(uuids) {
+  xresolveLocationUuidsToName(uuids) {
     return new Promise(function (resolve, reject) {
       // resolve location name
       dao.resolveLocationUuidsToName(uuids.split(','), function (loc) {

@@ -1,5 +1,20 @@
 [
   {
+    "sectionTitle": "1.1 HIV tests",
+    "indicators": [
+      {
+        "label": "Tests (M)",
+        "ref": "HV01-01",
+        "indicator": "hiv_test_test_male"
+      },
+      {
+        "label": "Tests (F)",
+        "ref": "HV01-01",
+        "indicator": "hiv_test_test_female"
+      }
+    ]
+  },
+  {
     "sectionTitle": "3.1 Enrolled in Care",
     "indicators": [
       {
