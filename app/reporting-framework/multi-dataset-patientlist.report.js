@@ -55,12 +55,12 @@ export class MultiDatasetPatientlistReport extends MultiDatasetReport {
     super(reportName, params);
   }
   // interprate
+
   generatePatientListReport(indicators) {
     let additionalParams = {
       type: 'patient-list',
       indicators: indicators
     };
-
     let that = this;
     return new Promise((resolve, reject) => {
       this.generateReport(additionalParams)

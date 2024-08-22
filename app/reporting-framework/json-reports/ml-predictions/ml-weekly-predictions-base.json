@@ -46,7 +46,39 @@
       "alias": "pre",
       "join": {
         "type": "LEFT",
-        "joinCondition": "pre.person_id = ml.person_id"
+        "joinCondition": "pre.person_id = ml.person_id and(DATEDIFF(ml.start_date, pre.encounter_datetime) <= 7)"
+      }
+    },
+    {
+      "table": "etl.sms_delivery_report",
+      "alias": "sm",
+      "join": {
+        "type": "LEFT",
+        "joinCondition": "sm.person_id = pre.person_id"
+      }
+    },
+    {
+      "table": "( select max(is_successful_phone_follow_up) as latest_phone_follow_up, person_id, follow_up_type from  etl.pre_appointment_summary group by person_id )",
+      "alias": "s",
+      "join": {
+        "type": "LEFT",
+        "joinCondition": "pre.person_id = s.person_id"
+      }
+    },
+    {
+      "table": "(SELECT et.person_id, SUM(CASE WHEN et.is_successful_phone_follow_up = 'YES' THEN 0 WHEN et.is_successful_phone_follow_up = 'NO' THEN 1 ELSE 0 END) AS counter FROM etl.pre_appointment_summary et left join predictions.ml_weekly_predictions mwl on et.person_id = mwl.person_id WHERE et.encounter_datetime BETWEEN mwl.prediction_generated_date AND DATE_ADD(mwl.prediction_generated_date, INTERVAL 14 DAY) GROUP BY et.person_id)",
+      "alias": "etc",
+      "join": {
+        "type": "LEFT",
+        "joinCondition": "ml.person_id = etc.person_id"
+      }
+    },
+    {
+      "table": "(SELECT ps.* FROM etl.pre_appointment_summary ps JOIN ( SELECT MAX(encounter_datetime) AS max_encounter_datetime, person_id FROM etl.pre_appointment_summary GROUP BY person_id ) latest_dates ON ps.encounter_datetime = latest_dates.max_encounter_datetime AND ps.person_id = latest_dates.person_id)",
+      "alias": "utd",
+      "join": {
+        "type": "LEFT",
+        "joinCondition": "ml.person_id = utd.person_id"
       }
     }
   ],
@@ -98,6 +130,11 @@
     },
     {
       "type": "simple_column",
+      "alias": "sms_delivery_status",
+      "column": "sm.delivery_status"
+    },
+    {
+      "type": "simple_column",
       "alias": "rtc_date",
       "column": "DATE_FORMAT(ml.rtc_date,'%Y-%m-%d')"
     },
@@ -143,6 +180,11 @@
     },
     {
       "type": "simple_column",
+      "alias": "comments",
+      "column": "utd.comments"
+    },
+    {
+      "type": "simple_column",
       "alias": "reason_client_not_found",
       "column": "pre.reason_client_not_found"
     },
@@ -156,13 +198,13 @@
       "alias": "was_follow_up_successful",
       "expressionType": "simple_expression",
       "expressionOptions": {
-        "expression": "if((pre.is_successful_phone_follow_up = 'YES' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'YES')), 1, 0)"
+        "expression": "if((latest_phone_follow_up = 'YES' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'YES')), 1, 0)"
       }
     },
     {
       "type": "simple_column",
-      "alias": "comments",
-      "column": "pre.comments"
+      "alias": "number_of_failed_phone_attempts",
+      "column": "etc.counter"
     }
   ],
   "filters": {
@@ -180,13 +222,18 @@
       },
       {
         "filterType": "tableColumns",
-        "conditionExpression": "(if((pre.is_successful_phone_follow_up = 'YES' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'YES')), 1, 0)) = ?",
+        "conditionExpression": "(if((latest_phone_follow_up = 'YES' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'YES')), 1, 0)) = ?",
         "parameterName": "successfulOutcome"
       },
       {
         "filterType": "tableColumns",
-        "conditionExpression": "(if((pre.is_successful_phone_follow_up = 'NO' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'NO')), 1, 0)) = ?",
+        "conditionExpression": "(if((latest_phone_follow_up = 'NO' OR (pre.attempted_home_visit = 'YES' AND pre.was_client_found = 'NO')), 1, 0)) = ?",
         "parameterName": "failedOutcome"
+      },
+      {
+        "filterType": "tableColumns",
+        "conditionExpression": "(if((pre.is_successful_phone_follow_up IS NULL AND pre.attempted_home_visit IS NULL AND pre.was_client_found IS NULL), 0, 1)) = ?",
+        "parameterName": "unknownOutcome"
       },
       {
         "filterType": "tableColumns",

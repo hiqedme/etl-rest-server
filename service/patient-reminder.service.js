@@ -84,19 +84,24 @@ function viralLoadReminders(data) {
     });
   } // adults
   else if (isAdult && data.needs_vl_coded === 3) {
-    reminders.push({
-      message:
-        requires +
-        '.Patients older than 25 years and newly on ART require ' +
-        'a viral load test after 12 months. ' +
-        labMessage,
-      title: 'Viral Load Reminder',
-      type: 'danger',
-      display: {
-        banner: true,
-        toast: true
-      }
-    });
+    if (
+      (data.viral_load > 200 && data.months_since_last_vl_date > 3) ||
+      (data.viral_load < 200 && data.months_since_last_vl_date > 6)
+    ) {
+      reminders.push({
+        message:
+          requires +
+          '.Patients older than 25 years and newly on ART require ' +
+          'a viral load test after 12 months. ' +
+          labMessage,
+        title: 'Viral Load Reminder',
+        type: 'danger',
+        display: {
+          banner: true,
+          toast: true
+        }
+      });
+    }
   } else if (
     isAdult &&
     (data.needs_vl_coded === 8) & (data.months_since_last_vl_date >= 12)
@@ -419,6 +424,12 @@ function TPTReminders(data) {
     data.inh_treatment_days_remaining < 150
   ) {
     showReminder = true;
+  } else if (
+    data.is_on_inh_treatment &&
+    data.inh_treatment_days_remaining <= 30 &&
+    data.inh_treatment_days_remaining > 0
+  ) {
+    showReminder = true;
   }
   // INH Treatment Reminder - last month
   try {
@@ -427,7 +438,7 @@ function TPTReminders(data) {
         message:
           'Patient started ' +
           months +
-          ' months' +
+          ' months ' +
           treatment +
           ' treatment on (' +
           Moment(data.ipt_start_date).format('DD-MM-YYYY') +
@@ -437,7 +448,7 @@ function TPTReminders(data) {
           '). ' +
           data.inh_treatment_days_remaining +
           ' days remaining.',
-        title: 'INH Treatment Reminder',
+        title: 'TPT Treatment Reminder',
         type: 'danger',
         display: {
           banner: true,
@@ -448,37 +459,12 @@ function TPTReminders(data) {
   } catch (e) {
     console.log(e);
   }
-  // INH Treatment Reminder - last month
-  if (
-    data.is_on_inh_treatment &&
-    data.inh_treatment_days_remaining <= 30 &&
-    data.inh_treatment_days_remaining > 0
-  ) {
-    reminders.push({
-      message:
-        'Patient started ' +
-        months +
-        ' month ' +
-        treatment +
-        'treatment since (' +
-        Moment(data.ipt_start_date).format('DD-MM-YYYY') +
-        '). Expected to end on (' +
-        Moment(data.ipt_completion_date).format('DD-MM-YYYY') +
-        ') ',
-      title: 'INH Treatment Reminder',
-      type: 'danger',
-      display: {
-        banner: true,
-        toast: true
-      }
-    });
-  }
-
   // TPT Reminders
   if (
     calculateAge(data.birth_date) >= 1 &&
     !data.ipt_start_date &&
-    !data.on_tb_tx
+    !data.on_tb_tx &&
+    !(data.tb_tx_start_date && !data.tb_tx_end_date)
   ) {
     reminders.push({
       message:
@@ -556,7 +542,6 @@ function newViralLoadPresent(data) {
 }
 
 function pendingViralLoadLabResult(eidResults) {
-  // console.log('EID Results', eidResults);
   let incompleteResult = eidResults.find((result) => {
     if (result) {
       if (result.sample_status) {
@@ -756,11 +741,11 @@ function getIptCompletionReminder(data) {
       message:
         'Patient started ' +
         months +
-        ' month IPT on ' +
+        ' month TPT on ' +
         Moment(data.ipt_start_date).format('DD-MM-YYYY') +
         ' and was supposed to be completed on ' +
         Moment(data.ipt_start_date).add(months, 'months').format('DD-MM-YYYY'),
-      title: 'IPT Completion Reminder',
+      title: 'TPT Completion Reminder',
       type: 'danger',
       display: {
         banner: true,
@@ -768,7 +753,7 @@ function getIptCompletionReminder(data) {
       }
     });
   } else {
-    console.info.call('No IPT Completion Reminder For Selected Patient');
+    console.info.call('No TPT Completion Reminder For Selected Patient');
   }
 
   return reminders;
@@ -959,7 +944,10 @@ function getFPExpiryDate(data) {
 function generateAppointmentNoShowUpRiskReminder(data) {
   let reminders = [];
   const predicted_score = (data.predicted_prob_disengage * 100).toFixed(2);
-  if (data.predicted_risk) {
+  if (
+    data.predicted_risk &&
+    data.last_encounter_date < data.prediction_generated_date
+  ) {
     if (data.predicted_risk === 'Medium Risk') {
       reminders.push({
         message:
@@ -996,8 +984,28 @@ function generateAppointmentNoShowUpRiskReminder(data) {
   return reminders;
 }
 
+function generateAppointmentRescheduledReminder(data) {
+  let reminders = [];
+
+  if (data.reschedule_appointment && data.reschedule_appointment === 'YES') {
+    if (data.last_encounter_date < data.prediction_generated_date) {
+      reminders.push({
+        message:
+          'Promised to come date is ' +
+          Moment(data.rescheduled_date).format('DD-MM-YYYY'),
+        title: 'Appointment reschedule request',
+        type: 'ml',
+        display: {
+          banner: true,
+          toast: true
+        }
+      });
+    }
+  }
+  return reminders;
+}
+
 async function generateReminders(etlResults, eidResults) {
-  // console.log('REMINDERS generateReminders');
   let reminders = [];
   let patientReminder;
   if (etlResults && etlResults.length > 0) {
@@ -1039,6 +1047,9 @@ async function generateReminders(etlResults, eidResults) {
   let appointmentNoShowUpRiskReminder = generateAppointmentNoShowUpRiskReminder(
     data
   );
+  let appointmentRescheduledRiskReminder = generateAppointmentRescheduledReminder(
+    data
+  );
 
   let currentReminder = [];
   if (pending_vl_lab_result.length > 0) {
@@ -1067,8 +1078,11 @@ async function generateReminders(etlResults, eidResults) {
 
   reminders = reminders.concat(currentReminder);
 
-  // Add appointment no show up risk reminder
-  reminders = reminders.concat(appointmentNoShowUpRiskReminder);
+  // Add appointment no show up risk reminder and
+  reminders = reminders.concat(
+    appointmentNoShowUpRiskReminder,
+    appointmentRescheduledRiskReminder
+  );
 
   patientReminder.reminders = reminders;
   return patientReminder;
@@ -1085,12 +1099,45 @@ function transformZeroVl(vl) {
 }
 
 function getEncountersByEncounterType(patient_uuid) {
-  const family_testing_encounter = '975ae894-7660-4224-b777-468c2e710a2a';
-  return new Promise(function (resolve, reject) {
+  const primaryFamilyTestingEncounter = '975ae894-7660-4224-b777-468c2e710a2a';
+  const secondaryFamilyTestingEncounter =
+    '5a58f6f5-f5a6-47eb-a644-626abd83f83b';
+  const specificConceptUuid = '0df3af2d-4eeb-4552-8395-51ef32270842';
+
+  function findSpecificObservation(encounters) {
+    for (const encounter of encounters) {
+      if (Array.isArray(encounter.obs)) {
+        for (const observation of encounter.obs) {
+          if (observation.concept.uuid === specificConceptUuid) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  return new Promise((resolve, reject) => {
     encounter_service
-      .getEncountersByEncounterType(patient_uuid, family_testing_encounter)
+      .getEncountersByEncounterType(patient_uuid, primaryFamilyTestingEncounter)
       .then((encounters) => {
-        resolve(encounters);
+        if (encounters == null || encounters.results.length === 0) {
+          return encounter_service.getEncountersByEncounterType(
+            patient_uuid,
+            secondaryFamilyTestingEncounter
+          );
+        }
+        return encounters;
+      })
+      .then((encounters) => {
+        if (encounters == null || encounters.results.length === 0) {
+          resolve(null);
+        } else {
+          if (findSpecificObservation(encounters.results)) {
+            console.log('Encounters from Family testing: ', encounters);
+          }
+          resolve(encounters);
+        }
       })
       .catch((err) => {
         reject(err);
@@ -1132,7 +1179,10 @@ function getCerivalScreeningReminder(personId) {
 
 function generateCervicalScreeningReminder(data) {
   let reminders = [];
-  if (data.qualifies_for_via_or_via_vili_retest === 1) {
+  if (
+    data.has_hysterectomy_done !== 1 &&
+    data.qualifies_for_via_or_via_vili_retest === 1
+  ) {
     reminders.push({
       message:
         'Patient is due for a repeat cervical cancer screening test. Last test result was Normal on ' +
