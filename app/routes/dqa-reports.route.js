@@ -89,6 +89,7 @@ const routes = [
         }
       },
       handler: function (request, reply) {
+        console.log('InHTS');
         if (request.query.locationUuids) {
           resolveLocationUuidToId
             .resolveLocationUuidsParamsToIds(request.query)
@@ -120,7 +121,7 @@ const routes = [
                 offset = request.query.startIndex;
               }
 
-              let service = new DQAChartAbstractionService();
+              let service = new HTSReportService();
               service
                 .getHTSReport()
                 .then((result) => {

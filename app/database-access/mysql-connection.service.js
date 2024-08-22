@@ -7,11 +7,8 @@ let MysqlConnectionService = {
       return connectionPool;
     }
     console.log('calling connection pool');
-    if ((database = 'afyastat')) {
-      connectionPool = mysql.createPool(ConfigService.getConfig().afyastat);
-    } else {
-      connectionPool = mysql.createPool(ConfigService.getConfig().mysql);
-    }
+
+    connectionPool = mysql.createPool(ConfigService.getConfig().mysql);
 
     return connectionPool;
   }
