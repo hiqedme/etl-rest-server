@@ -80,6 +80,14 @@
       }
     },
     {
+      "table": "predictions.ml_facility_metadata",
+      "alias": "mflm",
+      "join": {
+        "type": "left",
+        "joinCondition": "mflm.location_id = mwl.location_id"
+      }
+    },
+    {
       "table": "etl.pre_appointment_summary",
       "alias": "pre_s",
       "join": {
@@ -337,14 +345,14 @@
       "column": "t2.test_datetime"
     },
     {
-      "type": "simple_column",
+      "type": "derived_column",
       "alias": "predicted_risk",
-      "column": "mwl.predicted_risk"
+      "column": "case when mlfm.prediction_endpoint = 7 then mwl.predicted_risk_7day else mwl.predicted_risk"
     },
     {
-      "type": "simple_column",
+      "type": "derived_column",
       "alias": "predicted_prob_disengage",
-      "column": "mwl.predicted_prob_disengage"
+      "column": "case when mlfm.prediction_endpoint = 7 then mwl.predicted_prob_disengage_7day else mwl.predicted_prob_disengage"
     },
     {
       "type": "simple_column",

@@ -26,6 +26,24 @@
       }
     },
     {
+      "table": "predictions.ml_facility_metadata",
+      "alias": "mflm",
+      "join": {
+        "type": "left",
+        "joinCondition": "mflm.location_id = ml.location_id"
+      }
+    },
+    {
+      "type": "derived_column",
+      "alias": "predicted_risk",
+      "column": "case when mlfm.prediction_endpoint = 7 then ml.predicted_risk_7day else ml.predicted_risk"
+    },
+    {
+      "type": "derived_column",
+      "alias": "predicted_prob_disengage",
+      "column": "case when mlfm.prediction_endpoint = 7 then ml.predicted_prob_disengage_7day else ml.predicted_prob_disengage"
+    },
+    {
       "table": "etl.program_visit_map",
       "alias": "pm",
       "join": {
