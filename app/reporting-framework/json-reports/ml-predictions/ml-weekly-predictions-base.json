@@ -27,21 +27,11 @@
     },
     {
       "table": "predictions.ml_facility_metadata",
-      "alias": "mflm",
+      "alias": "mlfm",
       "join": {
         "type": "left",
-        "joinCondition": "mflm.location_id = ml.location_id"
+        "joinCondition": "mlfm.location_id = ml.location_id"
       }
-    },
-    {
-      "type": "derived_column",
-      "alias": "predicted_risk",
-      "column": "case when mlfm.prediction_endpoint = 7 then ml.predicted_risk_7day else ml.predicted_risk"
-    },
-    {
-      "type": "derived_column",
-      "alias": "predicted_prob_disengage",
-      "column": "case when mlfm.prediction_endpoint = 7 then ml.predicted_prob_disengage_7day else ml.predicted_prob_disengage"
     },
     {
       "table": "etl.program_visit_map",
@@ -127,19 +117,25 @@
       "column": "p.name"
     },
     {
-      "type": "simple_column",
+      "type": "derived_column",
       "alias": "predicted_risk",
-      "column": "ml.predicted_risk"
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "(case when mlfm.prediction_endpoint = 7  and ml.week>'2024-W36' then ml.predicted_risk_7day else ml.predicted_risk end)"
+      }
+    },
+    {
+      "type": "derived_column",
+      "alias": "predicted_prob_disengage",
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "(case when mlfm.prediction_endpoint = 7  and ml.week>'2024-W36' then ml.predicted_prob_disengage_7day else ml.predicted_prob_disengage end)"
+      }
     },
     {
       "type": "simple_column",
       "alias": "week",
       "column": "ml.week"
-    },
-    {
-      "type": "simple_column",
-      "alias": "predicted_prob_disengage",
-      "column": "ml.predicted_prob_disengage"
     },
     {
       "type": "simple_column",
