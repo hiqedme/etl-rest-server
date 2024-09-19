@@ -259,11 +259,11 @@
     "orderByParam": "orderByParam",
     "columns": [
       {
-        "column": "ml.predicted_prob_disengage",
+        "column": "predicted_prob_disengage",
         "order": "desc"
       },
       {
-        "column": "ml.prediction_generated_date",
+        "column": "prediction_generated_date",
         "order": "desc"
       },
       {
