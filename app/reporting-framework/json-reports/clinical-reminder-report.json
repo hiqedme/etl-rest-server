@@ -88,6 +88,14 @@
       }
     },
     {
+      "table": "predictions.ml_facility_metadata",
+      "alias": "mlfm",
+      "join": {
+        "type": "left",
+        "joinCondition": "mlfm.location_id = mwl.location_id"
+      }
+    },
+    {
       "table": "(SELECT ps.* FROM etl.pre_appointment_summary ps JOIN ( SELECT MAX(encounter_datetime) AS max_encounter_datetime, person_id FROM etl.pre_appointment_summary GROUP BY person_id ) latest_dates ON ps.encounter_datetime = latest_dates.max_encounter_datetime AND ps.person_id = latest_dates.person_id)",
       "alias": "pre_u",
       "join": {
@@ -337,14 +345,20 @@
       "column": "t2.test_datetime"
     },
     {
-      "type": "simple_column",
+      "type": "derived_column",
       "alias": "predicted_risk",
-      "column": "mwl.predicted_risk"
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "(case when mlfm.prediction_endpoint = 7  and mwl.week>'2024-W36' then mwl.predicted_risk_7day else mwl.predicted_risk end)"
+      }
     },
     {
-      "type": "simple_column",
+      "type": "derived_column",
       "alias": "predicted_prob_disengage",
-      "column": "mwl.predicted_prob_disengage"
+      "expressionType": "simple_expression",
+      "expressionOptions": {
+        "expression": "(case when mlfm.prediction_endpoint = 7  and mwl.week>'2024-W36' then mwl.predicted_prob_disengage_7day else mwl.predicted_prob_disengage end)"
+      }
     },
     {
       "type": "simple_column",
