@@ -251,7 +251,7 @@
       },
       {
         "filterType": "tableColumns",
-        "conditionExpression": "ml.predicted_risk is not null"
+        "conditionExpression": "predicted_risk is not null"
       }
     ]
   },
