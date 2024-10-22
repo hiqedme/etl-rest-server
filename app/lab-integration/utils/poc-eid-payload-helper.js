@@ -9,6 +9,11 @@
     console.log('generatePocToEidPayLoad', payload);
     return new Promise(function (resolve, reject) {
       var eidPayload = {};
+      // has to be a newly positive breastfeeding/after delivery (contracted or tested positive within the breatsfeeding period)
+      //  PMTCT-NP (up to ≤6 weeks in PNC) ( 1 )
+      //PMTCT-NP (>6 weeks in PNC) (2 )
+      // Default ( null )  // for all male -> null and for all non-breastfeeding females and breatfeeding KP]
+      // when (VLJustification = New Positive and pmtct = 2) all else should be null
 
       try {
         switch (payload.type) {
@@ -31,6 +36,7 @@
                   : payload.breastfeeding === 1
                   ? 2
                   : 3,
+              pmtct_np_code: 2, // getPmtctPosting(payload)
               amrs_location: getLocation(payload, 'mrsId')
             };
             break;
@@ -101,6 +107,7 @@
     const eidNo = getInfantProphylaxisEidCode(rawPayload.infantProphylaxisUuid);
     if (eidNo) return eidNo;
   }
+  function getPmtctPosting(rawPayload) {}
 
   function getPmtctIntervention(rawPayload) {
     const pmtctInterventionUuid = rawPayload.pmtctInterventionUuid[0] || '';
